@@ -1,0 +1,25 @@
+﻿services:
+  laba8:
+    image: laba8
+    build:
+      context: .
+      dockerfile: laba8/Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      'ConnectionStrings__Database': 'Server=tcp:db,1433;Database=ponchik;User Id=sa;Password=OneTwoThree123;TrustServerCertificate=True;'
+    depends_on:
+      db:
+        condition: service_healthy  
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      'ACCEPT_EULA': Y'
+      'MSSQL_SA_PASSWORD': 'OneTwoThree123'
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -Q "SELECT 1" || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s

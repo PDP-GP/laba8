@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  laba8:
+    build:
+      context: "C:\\uni\\laba8"
+      dockerfile: "laba8/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/laba8.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "laba8:dev"
+    ports: []
+    volumes:
+    - "C:\\uni\\laba8\\laba8:/app:rw"
+    - "C:\\uni\\laba8:/src:rw"
+    - "C:\\Users\\olesy\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
